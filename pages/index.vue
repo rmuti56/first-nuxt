@@ -3,9 +3,52 @@
     <section class="intro">
       <h1>Get the latest tech news!</h1>
     </section>
-    <PostList />
+    <PostList :posts="loadedPosts" />
   </div>
 </template>
+<script>
+import PostList from '@/components/PostList.vue'
+export default {
+  components: {
+    PostList,
+  },
+  asyncData(context, callback) {
+    // eslint-disable-next-line nuxt/no-timing-in-fetch-data
+    setTimeout(() => {
+      console.log('asyncData is executed', process.server)
+      callback(null, {
+        loadedPosts: [
+          {
+            id: '1',
+            title: 'First Post',
+            previewText: 'This is our first post!',
+          },
+          {
+            id: '2',
+            title: 'Second Post',
+            previewText: 'This is our second post!',
+          },
+          {
+            id: '3',
+            title: 'Third Post',
+            previewText: 'This is our third post!',
+          },
+          {
+            id: '4',
+            title: 'Fourth Post',
+            previewText: 'This is our fourth post!',
+          },
+        ],
+      })
+    }, 500)
+  },
+  data() {
+    return {
+      loadedPosts: [],
+    }
+  },
+}
+</script>
 
 <style scoped>
 .intro {

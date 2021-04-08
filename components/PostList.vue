@@ -1,8 +1,33 @@
 <template>
   <div class="post-list">
-    <PostPreview :post-id="'1'" :title="'1111'" :preview-text="'ssss'" />
+    <PostPreview
+      v-for="post of posts"
+      :key="post.id"
+      :is-admin="isAdmin"
+      :post-id="post.id"
+      :title="post.title"
+      :preview-text="post.previewText"
+    />
   </div>
 </template>
+<script>
+import PostPreview from '@/components/PostPreview.vue'
+export default {
+  components: {
+    PostPreview,
+  },
+  props: {
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    posts: {
+      type: Array,
+      required: true,
+    },
+  },
+}
+</script>
 <style scoped>
 .post-list {
   display: flex;
