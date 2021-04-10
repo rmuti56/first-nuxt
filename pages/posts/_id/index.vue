@@ -1,12 +1,12 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1 class="post-title">Title of the Post</h1>
+      <h1 class="post-title">{{ loadedPost.title }}</h1>
       <div class="post-details">
-        <div>Last updated on XXX</div>
-        <div>Written by NAME</div>
+        <div>Last updated on {{ loadedPost.updatedDate }}</div>
+        <div>Written by {{ loadedPost.author }}</div>
       </div>
-      <p>Content of the post</p>
+      <p>{{ loadedPost.content }}</p>
     </section>
     <section class="post-feedback">
       <p>
@@ -16,6 +16,17 @@
     </section>
   </div>
 </template>
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters('post', ['getPostById']),
+    loadedPost() {
+      return this.getPostById(this.$route.params.id)
+    },
+  },
+}
+</script>
 <style scoped>
 .single-post-page {
   padding: 30px;
